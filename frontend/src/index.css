@@ -1,0 +1,405 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ─────────────────────────────────────────────────── */
+:root {
+  /* Dark: Operator Console */
+  --app-bg: 221 22% 8%;
+  /* #0D1018 */
+  --app-panel: 221 19% 12%;
+  /* #151C28 */
+  --app-border: 220 16% 21%;
+  /* #2A3045 */
+
+  --color-primary: 217 91% 60%;
+  /* #3B82F6 - Royal Blue */
+  --color-secondary: 199 89% 48%;
+  /* #0EA5E9 - Sky */
+  --color-accent: 258 89% 66%;
+  /* #7C3AED → #8B5CF6 - Violet for kbd */
+  --color-danger: 0 84% 60%;
+  /* #EF4444 */
+  --color-success: 142 71% 45%;
+  /* #22C55E */
+
+  --text-primary: hsl(218, 28%, 94%);
+  --text-secondary: hsl(218, 14%, 60%);
+  --text-muted: hsl(218, 10%, 38%);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --transition-fast: 120ms cubic-bezier(0.2, 0, 0, 1);
+  --transition-base: 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.theme-light {
+  --app-bg: 220 20% 97%;
+  /* #F5F7FB */
+  --app-panel: 0 0% 100%;
+  --app-border: 218 16% 86%;
+  /* #D5DCE8 */
+
+  --color-primary: 221 83% 53%;
+  /* #2563EB */
+  --color-secondary: 199 89% 40%;
+  --color-accent: 258 89% 58%;
+  --color-danger: 0 84% 54%;
+  --color-success: 142 71% 38%;
+
+  --text-primary: hsl(222, 40%, 10%);
+  --text-secondary: hsl(220, 18%, 42%);
+  --text-muted: hsl(218, 12%, 62%);
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  background: hsl(var(--app-bg));
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.005em;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--app-border));
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ─── Focus ──────────────────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid hsl(var(--color-primary));
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Typography helpers ────────────────────────────────────────────── */
+.text-primary-color {
+  color: var(--text-primary) !important;
+}
+
+.text-secondary-color {
+  color: var(--text-secondary) !important;
+}
+
+.text-muted-color {
+  color: var(--text-muted) !important;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ─── Panel surfaces ────────────────────────────────────────────────── */
+.panel {
+  background: hsl(var(--app-panel));
+  border: 1px solid hsl(var(--app-border));
+  border-radius: var(--radius-lg);
+}
+
+/* ─── Form inputs ───────────────────────────────────────────────────── */
+.field-input {
+  background: hsl(var(--app-bg));
+  border: 1px solid hsl(var(--app-border));
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 12px;
+  width: 100%;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: hsl(var(--color-primary));
+  box-shadow: 0 0 0 3px hsl(var(--color-primary) / 0.15);
+}
+
+.field-select {
+  background: hsl(var(--app-bg));
+  border: 1px solid hsl(var(--app-border));
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 12px;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%235E6F82' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 14px;
+  padding-right: 28px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.field-select:focus {
+  outline: none;
+  border-color: hsl(var(--color-primary));
+  box-shadow: 0 0 0 3px hsl(var(--color-primary) / 0.15);
+}
+
+/* ─── Buttons ───────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: hsl(var(--color-primary));
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: hsl(var(--color-primary) / 0.88);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid hsl(var(--app-border));
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: hsl(var(--app-panel));
+  color: var(--text-primary);
+}
+
+.btn-danger {
+  background: hsl(var(--color-danger));
+  color: #fff;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: hsl(var(--color-danger) / 0.88);
+}
+
+.btn-success {
+  background: hsl(var(--color-success));
+  color: #fff;
+}
+
+.btn-success:hover:not(:disabled) {
+  background: hsl(var(--color-success) / 0.88);
+}
+
+/* ─── Flow Editor Nodes ─────────────────────────────────────────────── */
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  background: hsl(var(--app-panel));
+  border: 1px solid hsl(var(--app-border));
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.flow-node:hover {
+  border-color: hsl(var(--app-border) / 1);
+}
+
+.flow-node.active {
+  border-color: hsl(var(--color-primary) / 0.5);
+}
+
+.flow-node.disabled {
+  opacity: 0.45;
+}
+
+/* Left stripe */
+.flow-node::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--node-stripe, hsl(var(--app-border)));
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+.node-trigger {
+  --node-stripe: hsl(var(--color-primary));
+}
+
+.node-mouse {
+  --node-stripe: hsl(var(--color-secondary));
+}
+
+.node-keyboard {
+  --node-stripe: hsl(var(--color-accent));
+}
+
+.node-loop {
+  --node-stripe: hsl(43, 96%, 50%);
+}
+
+/* amber */
+.node-condition {
+  --node-stripe: hsl(142, 71%, 45%);
+}
+
+/* emerald */
+
+/* ─── Flow connector line ───────────────────────────────────────────── */
+.flow-line {
+  width: 1px;
+  background: hsl(var(--app-border));
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ─── Mono font util ────────────────────────────────────────────────── */
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── Status badge ──────────────────────────────────────────────────── */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.status-dot.active {
+  background: hsl(var(--color-success));
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.status-dot.recording {
+  background: hsl(var(--color-danger));
+  animation: pulse-dot 1s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+/* ─── Transitions & Animations ──────────────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+    max-height: 0;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 500px;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 200ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.animate-slideDown {
+  animation: slideDown 200ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+/* ─── Section labels ────────────────────────────────────────────────── */
+.section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 4px;
+}
+
+/* ─── Kbd chip ─────────────────────────────────────────────────────── */
+.kbd-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  background: hsl(var(--app-bg));
+  border: 1px solid hsl(var(--app-border));
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+}

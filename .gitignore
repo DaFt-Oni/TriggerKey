@@ -1,0 +1,32 @@
+# ─── Python Environment ───
+__pycache__/
+*.py[cod]
+*$py.class
+*.spec
+venv/
+.venv/
+env/
+.env
+build/
+dist/
+*.egg-info/
+
+# ─── Frontend Node.js ───
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.eslintcache
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ─── OS Specific ───
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── Project Executables ───
+*.exe
+macros/*.json
+!macros/template_*.json
