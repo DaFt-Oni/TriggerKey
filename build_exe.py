@@ -9,7 +9,7 @@ def main():
     print("=" * 60)
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    backend_app = os.path.join(current_dir, "backend", "app.py")
+    main_app = os.path.join(current_dir, "main.py")
 
     # 1. Run build_front.py first to compile frontend and move assets
     print("\n[1/3] Triggering Frontend Compilation...")
@@ -37,7 +37,7 @@ def main():
         f"--add-data={templates_add}",
         f"--add-data={static_add}",
         "--name=TriggerKey",
-        backend_app
+        main_app
     ]
 
     print(f"Executing command: {' '.join(pyinstaller_cmd)}")

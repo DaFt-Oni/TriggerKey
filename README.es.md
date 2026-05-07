@@ -92,7 +92,7 @@ Puedes ejecutar el servidor Flask local con la ventana nativa activada de forma 
 Opcionalmente puedes ejecutar el backend en modo debug manualmente con el siguiente comando:
 ```bash
 set TRIGGERKEY_DEBUG=1
-python backend/app.py
+python main.py
 ```
 *Si estás trabajando activamente en la interfaz web, puedes levantar la suite de desarrollo en tiempo real de Vite ejecutando `npm run dev` dentro del directorio `frontend/`.*
 
